@@ -13,7 +13,7 @@ public class MainActivity extends Activity
     /**Called when the activity is first created*/
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_crime);
+		setContentView(R.layout.activity_fragment);
 
         FragmentManager fm = getFragmentManager();
 		Fragment fragment = fm.findFragmentById(R.id.fragmentContainer);

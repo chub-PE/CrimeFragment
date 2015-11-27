@@ -53,7 +53,7 @@ public class CrimeLab
 
 	}
 
-	public ArrayList<Crime> getCrimes()
+	public ArrayList<Crime> getCrimeList()
 	{
 		return _crimeList;
 	}
