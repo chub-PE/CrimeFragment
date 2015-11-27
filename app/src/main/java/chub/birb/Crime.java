@@ -1,5 +1,9 @@
 package chub.birb;
 
+import android.util.Log;
+import android.view.View;
+import android.widget.ListView;
+
 import java.util.Date;
 import java.util.UUID;
 
@@ -9,7 +13,7 @@ import java.util.UUID;
  */
 public class Crime
 {
-    private UUID _crimeID;
+	private UUID _crimeID;
     private String _crimeTitle;
     private Date _crimeDate;
     private boolean _crimeSolved;
@@ -55,5 +59,13 @@ public class Crime
     {
         _crimeSolved = crimeSolved;
     }
+
+    @Override
+    public String toString()
+    {
+        return _crimeTitle;
+    }
+
+
 }
 
