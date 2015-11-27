@@ -1,12 +1,15 @@
 package chub.birb;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 
 /**
@@ -17,6 +20,8 @@ public class CrimeFragment extends Fragment
 {
 	private Crime _crimeObject;
 	private EditText _titleField;
+	private CheckBox _solvedCheckBox;
+	private Button _dateButton;
 
 	@Override
 	public void onCreate(Bundle b)
@@ -28,9 +33,24 @@ public class CrimeFragment extends Fragment
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle b)
 	{
-		View result = inflater.inflate(R.layout.fragment_crime, parent, false);
+		View view = inflater.inflate(R.layout.fragment_crime, parent, false);
 
-		_titleField = (EditText)result.findViewById(R.id.crime_title);
+		_solvedCheckBox = (CheckBox) view.findViewById(R.id.crime_solved_checkbox);
+		_solvedCheckBox.setEnabled(_crimeObject.isCrimeSolved());
+		_solvedCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+		{
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+			{
+				_crimeObject.setCrimeSolved(isChecked);
+			}
+		});
+
+		_dateButton = (Button) view.findViewById(R.id.crime_date_button);
+		_dateButton.setText(_crimeObject.getCrimeDate().toString());
+		_dateButton.setEnabled(false);
+
+		_titleField = (EditText) view.findViewById(R.id.crime_title);
 		_titleField.addTextChangedListener(new TextWatcher()
 		{
 			public void onTextChanged(CharSequence c, int start, int before, int count)
@@ -47,6 +67,6 @@ public class CrimeFragment extends Fragment
 			}
 		});
 
-		return result;
+		return view;
 	}
 }

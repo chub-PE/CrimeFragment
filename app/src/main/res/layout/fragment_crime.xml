@@ -5,11 +5,51 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/crime_title_label"
+        style="?android:listSeparatorTextViewStyle"
+        />
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/crime_title"
         android:hint="@string/crime_title_hint"
         />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/crime_details_label"
+        android:id="@+id/textView2"
+        style="?android:listSeparatorTextViewStyle"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/crime_date_button"
+        android:layout_marginLeft="@dimen/activity_crime_margin"
+        android:layout_marginRight="@dimen/activity_crime_margin"
+        />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/crime_solved_checkbox"
+        android:layout_marginLeft="@dimen/activity_crime_margin"
+        android:layout_marginRight="@dimen/activity_crime_margin"
+        android:text="@string/crime_solved_label"
+        />
+
+    <ProgressBar
+        style="?android:attr/progressBarStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBar"
+        android:layout_gravity="right" />
 
 </LinearLayout>

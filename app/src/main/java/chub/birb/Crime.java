@@ -1,5 +1,6 @@
 package chub.birb;
 
+import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -10,11 +11,14 @@ public class Crime
 {
     private UUID _crimeID;
     private String _crimeTitle;
+    private Date _crimeDate;
+    private boolean _crimeSolved;
 
     public Crime()
     {
         //generate unique ID
         _crimeID = UUID.randomUUID();
+        _crimeDate = new Date();
     }
 
     public UUID getCrimeID()
@@ -32,5 +36,24 @@ public class Crime
         _crimeTitle = crimeTitle;
     }
 
+    public Date getCrimeDate()
+    {
+        return _crimeDate;
+    }
+
+    public void setCrimeDate(Date crimeDate)
+    {
+        _crimeDate = crimeDate;
+    }
+
+    public boolean isCrimeSolved()
+    {
+        return _crimeSolved;
+    }
+
+    public void setCrimeSolved(boolean crimeSolved)
+    {
+        _crimeSolved = crimeSolved;
+    }
 }
 
