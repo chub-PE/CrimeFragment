@@ -12,12 +12,16 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 
+import java.util.UUID;
+
 /**
  * Created by chub on 11/27/2015.
  * CrimeFragment shows data from a Crime object, and provides means to manipulate it.
  */
 public class CrimeFragment extends Fragment
 {
+	public static final String EXTRA_CRIME_ID = "chub.birb.crimefragment.crime_id";
+
 	private Crime _crimeObject;
 	private EditText _titleField;
 	private CheckBox _solvedCheckBox;
@@ -27,8 +31,9 @@ public class CrimeFragment extends Fragment
 	public void onCreate(Bundle b)
 	{
 		super.onCreate(b);
-		_crimeObject = new Crime();
-	}
+		UUID crimeId = (UUID)getActivity().getIntent()
+				.getSerializableExtra(EXTRA_CRIME_ID);
+		_crimeObject = CrimeLab.get(getActivity()).getCrime(crimeId);	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle b)
@@ -36,7 +41,7 @@ public class CrimeFragment extends Fragment
 		View view = inflater.inflate(R.layout.fragment_crime, parent, false);
 
 		_solvedCheckBox = (CheckBox) view.findViewById(R.id.crime_solved_checkbox);
-		_solvedCheckBox.setEnabled(_crimeObject.isCrimeSolved());
+		_solvedCheckBox.setChecked(_crimeObject.isCrimeSolved());
 		_solvedCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
 		{
 			@Override
@@ -48,9 +53,10 @@ public class CrimeFragment extends Fragment
 
 		_dateButton = (Button) view.findViewById(R.id.crime_date_button);
 		_dateButton.setText(_crimeObject.getCrimeDate().toString());
-		_dateButton.setEnabled(false);
+		//_dateButton.setEnabled(false);
 
 		_titleField = (EditText) view.findViewById(R.id.crime_title);
+		_titleField.setText(_crimeObject.getCrimeTitle());
 		_titleField.addTextChangedListener(new TextWatcher()
 		{
 			public void onTextChanged(CharSequence c, int start, int before, int count)
