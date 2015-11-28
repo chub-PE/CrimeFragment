@@ -1,5 +1,6 @@
 package chub.birb;
 
+import android.app.FragmentManager;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -22,6 +23,7 @@ import java.util.UUID;
 public class CrimeFragment extends Fragment
 {
 	public static final String EXTRA_CRIME_ID = "chub.birb.crimefragment.crime_id";
+	private static final String DIALOG_DATE = "date";
 
 	private Crime _crimeObject;
 	private EditText _titleField;
@@ -54,7 +56,17 @@ public class CrimeFragment extends Fragment
 
 		_dateButton = (Button) view.findViewById(R.id.crime_date_button);
 		_dateButton.setText(_crimeObject.getCrimeDate().toString());
-		_dateButton.setEnabled(false);
+		_dateButton.setOnClickListener(new View.OnClickListener()
+		{
+			@Override
+			public void onClick(View v)
+			{
+				FragmentManager fm =
+						getActivity().getFragmentManager();
+				DatePickerFragment dialog = new DatePickerFragment();
+				dialog.show(fm, DIALOG_DATE);
+			}
+		});
 
 		_titleField = (EditText) view.findViewById(R.id.crime_title);
 		_titleField.setText(_crimeObject.getCrimeTitle());
@@ -64,10 +76,12 @@ public class CrimeFragment extends Fragment
 			{
 				_crimeObject.setCrimeTitle(c.toString());
 			}
+
 			public void beforeTextChanged(CharSequence c, int start, int count, int after)
 			{
 				//blank
 			}
+
 			public void afterTextChanged(Editable c)
 			{
 				//blanks
