@@ -12,6 +12,7 @@ import java.util.UUID;
  * CrimeActivity is a SingleFragmentActivity, that contains a CrimeFragment.
  * It shows data from a single instance of crime.
  */
+@Deprecated
 public class CrimeActivity extends SingleFragmentActivity
 {
 	@Override

@@ -9,7 +9,7 @@ import java.util.UUID;
 
 /**
  * Created by chub on 11/27/2015.
- * Crime objects are able to store data about instances of crimes.
+ * Crime MODEL objects are able to store data about instances of crimes.
  */
 public class Crime
 {
