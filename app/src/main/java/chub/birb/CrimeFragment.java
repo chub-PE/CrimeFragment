@@ -14,7 +14,7 @@ import android.widget.EditText;
 
 /**
  * Created by chub on 11/27/2015.
- * FUCK YOU LINT I WRITE HEADERS WHENEVER I PLEASE
+ * CrimeFragment shows data from a Crime object, and provides means to manipulate it.
  */
 public class CrimeFragment extends Fragment
 {

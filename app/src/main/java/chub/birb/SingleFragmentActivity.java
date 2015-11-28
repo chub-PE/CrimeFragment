@@ -7,7 +7,8 @@ import android.app.FragmentManager;
 
 /**
  * Created by chub on 11/27/2015.
- * DAMMIT
+ * SingleFragmentActivity is an abstract superclass that contains methods to manage a single
+ * fragment.
  */
 public abstract class SingleFragmentActivity extends Activity
 {

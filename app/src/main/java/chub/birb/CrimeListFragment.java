@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 /**
  * Created by chub on 11/27/2015.
- * COMMIT
+ * It shows data from multiple Crime instances in a scrollable list view.
  */
 public class CrimeListFragment extends ListFragment
 {

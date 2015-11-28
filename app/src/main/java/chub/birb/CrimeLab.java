@@ -8,6 +8,7 @@ import java.util.UUID;
 
 /**
  * Created by chub on 11/27/2015.
+ * CrimeLab is a single instance class that contains all the Crime instances.
  */
 public class CrimeLab
 {
