@@ -31,9 +31,9 @@ public class CrimeFragment extends Fragment
 	public void onCreate(Bundle b)
 	{
 		super.onCreate(b);
-		UUID crimeId = (UUID)getActivity().getIntent()
-				.getSerializableExtra(EXTRA_CRIME_ID);
-		_crimeObject = CrimeLab.get(getActivity()).getCrime(crimeId);	}
+		final UUID crimeID = (UUID) getArguments().getSerializable(EXTRA_CRIME_ID);
+		_crimeObject = CrimeLab.get(getActivity()).getCrime(crimeID);
+	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle b)
@@ -53,7 +53,7 @@ public class CrimeFragment extends Fragment
 
 		_dateButton = (Button) view.findViewById(R.id.crime_date_button);
 		_dateButton.setText(_crimeObject.getCrimeDate().toString());
-		//_dateButton.setEnabled(false);
+		_dateButton.setEnabled(false);
 
 		_titleField = (EditText) view.findViewById(R.id.crime_title);
 		_titleField.setText(_crimeObject.getCrimeTitle());
@@ -74,5 +74,14 @@ public class CrimeFragment extends Fragment
 		});
 
 		return view;
+	}
+
+	public static CrimeFragment newInstance(UUID crimeId)
+	{
+		Bundle args = new Bundle();
+		args.putSerializable(EXTRA_CRIME_ID, crimeId);
+		CrimeFragment fragment = new CrimeFragment();
+		fragment.setArguments(args);
+		return fragment;
 	}
 }

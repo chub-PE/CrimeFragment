@@ -81,5 +81,12 @@ public class CrimeListFragment extends ListFragment
 		}
 	}
 
+	@Override
+	public void onResume()
+	{
+		super.onResume();
+		((CrimeAdapter) getListAdapter()).notifyDataSetChanged();
+	}
+
 
 }
