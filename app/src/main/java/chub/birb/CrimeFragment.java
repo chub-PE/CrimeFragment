@@ -1,9 +1,10 @@
 package chub.birb;
 
+import android.app.Activity;
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 
+import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -24,6 +26,8 @@ public class CrimeFragment extends Fragment
 {
 	public static final String EXTRA_CRIME_ID = "chub.birb.crimefragment.crime_id";
 	private static final String DIALOG_DATE = "date";
+	private static final int REQUEST_DATE = 0;
+
 
 	private Crime _crimeObject;
 	private EditText _titleField;
@@ -55,7 +59,6 @@ public class CrimeFragment extends Fragment
 		});
 
 		_dateButton = (Button) view.findViewById(R.id.crime_date_button);
-		_dateButton.setText(_crimeObject.getCrimeDate().toString());
 		_dateButton.setOnClickListener(new View.OnClickListener()
 		{
 			@Override
@@ -63,10 +66,13 @@ public class CrimeFragment extends Fragment
 			{
 				FragmentManager fm =
 						getActivity().getFragmentManager();
-				DatePickerFragment dialog = new DatePickerFragment();
+				DatePickerFragment dialog =
+						DatePickerFragment.newInstance(_crimeObject.getCrimeDate());
+				dialog.setTargetFragment(CrimeFragment.this, REQUEST_DATE);
 				dialog.show(fm, DIALOG_DATE);
 			}
 		});
+		refreshDate();
 
 		_titleField = (EditText) view.findViewById(R.id.crime_title);
 		_titleField.setText(_crimeObject.getCrimeTitle());
@@ -91,6 +97,19 @@ public class CrimeFragment extends Fragment
 		return view;
 	}
 
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data)
+	{
+		if (resultCode != Activity.RESULT_OK) return;
+		if (requestCode == REQUEST_DATE)
+		{
+			Date date =
+					(Date) data.getSerializableExtra(DatePickerFragment.EXTRA_DATE);
+			_crimeObject.setCrimeDate(date);
+			refreshDate();
+		}
+	}
+
 	public static CrimeFragment newInstance(UUID crimeId)
 	{
 		Bundle args = new Bundle();
@@ -99,4 +118,10 @@ public class CrimeFragment extends Fragment
 		fragment.setArguments(args);
 		return fragment;
 	}
+
+	private void refreshDate()
+	{
+		_dateButton.setText(_crimeObject.getCrimeDate().toString());
+	}
+
 }

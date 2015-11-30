@@ -3,7 +3,8 @@ package chub.birb;
 import android.app.ListFragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -26,6 +27,7 @@ public class CrimeListFragment extends ListFragment
 	public void onCreate(Bundle b)
 	{
 		super.onCreate(b);
+		setHasOptionsMenu(true);
 		getActivity().setTitle(R.string.crimes_title);
 		_crimeList = CrimeLab.get(getActivity()).getCrimeList();
 
@@ -44,6 +46,14 @@ public class CrimeListFragment extends ListFragment
 		i.putExtra(CrimeFragment.EXTRA_CRIME_ID, c.getCrimeID());
 		startActivity(i);
 	}
+
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
+	{
+		super.onCreateOptionsMenu(menu, inflater);
+		inflater.inflate(R.menu.fragment_crime_list, menu);
+	}
+
 
 	private class CrimeAdapter extends ArrayAdapter<Crime>
 	{

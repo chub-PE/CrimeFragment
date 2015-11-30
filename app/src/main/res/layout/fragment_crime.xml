@@ -45,11 +45,4 @@
         android:text="@string/crime_solved_label"
         />
 
-    <ProgressBar
-        style="?android:attr/progressBarStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/progressBar"
-        android:layout_gravity="right" />
-
 </LinearLayout>

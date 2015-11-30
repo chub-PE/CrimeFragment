@@ -1,8 +1,5 @@
 package chub.birb;
 
-import android.util.Log;
-import android.view.View;
-import android.widget.ListView;
 
 import java.util.Date;
 import java.util.UUID;
