@@ -30,6 +30,16 @@ public class Crime
         _date = new Date();
     }
 
+	public Crime(JSONObject json) throws JSONException
+	{
+		_ID = UUID.fromString(json.getString(JSON_ID));
+		if (json.has(JSON_TITLE)) {
+			_title = json.getString(JSON_TITLE);
+		}
+		_solved = json.getBoolean(JSON_SOLVED);
+		_date = new Date(json.getLong(JSON_DATE));
+	}
+
     public JSONObject toJSON() throws JSONException
     {
         JSONObject json = new JSONObject();

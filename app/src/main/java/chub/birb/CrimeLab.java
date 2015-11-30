@@ -25,8 +25,17 @@ public class CrimeLab
 	private CrimeLab(Context appContext)
 	{
 		this._appContext = appContext;
-		this._crimeList = new ArrayList<Crime>();
 		_serializer = new CriminalIntentJSONSerializer(_appContext, FILENAME);
+		try
+		{
+			_crimeList = _serializer.loadCrimes();
+			Log.d(TAG, "Loaded crimes.");
+		}
+		catch (Exception e)
+		{
+			_crimeList = new ArrayList<Crime>();
+			Log.e(TAG, "Error loading crimes: ", e);
+		}
 	}
 
 	public void addCrime(Crime crime)
