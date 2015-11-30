@@ -4,12 +4,15 @@ import android.app.ListFragment;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.ListView;
@@ -57,14 +60,18 @@ public class CrimeListFragment extends ListFragment
 
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup parent,
-							 Bundle savedInstanceState) {
+	public View
+	onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState)
+	{
 		View v = super.onCreateView(inflater, parent, savedInstanceState);
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-			if (_subtitleVisible) {
-				getActivity().getActionBar().setSubtitle(R.string.subtitle);
-			}
+		if (_subtitleVisible)
+		{
+			getActivity().getActionBar().setSubtitle(R.string.subtitle);
 		}
+
+		ListView listView = (ListView) v.findViewById(android.R.id.list);
+		registerForContextMenu(listView);
+
 		return v;
 	}
 
@@ -81,6 +88,30 @@ public class CrimeListFragment extends ListFragment
 		}
 	}
 
+	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo)
+	{
+		getActivity().getMenuInflater().inflate(R.menu.crime_list_item_context, menu);
+	}
+
+	@Override
+	public boolean onContextItemSelected(MenuItem item)
+	{
+		AdapterView.AdapterContextMenuInfo info =
+				(AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
+		int position = info.position;
+		CrimeAdapter adapter = (CrimeAdapter)getListAdapter();
+		Crime crime = adapter.getItem(position);
+		switch (item.getItemId())
+		{
+			case R.id.menu_item_delete_crime:
+				CrimeLab.get(getActivity()).deleteCrime(crime);
+				adapter.notifyDataSetChanged();
+				return true;
+			default:
+				return super.onContextItemSelected(item);
+		}
+	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item)

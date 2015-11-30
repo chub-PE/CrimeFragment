@@ -21,7 +21,6 @@ public class CrimeLab
 	private ArrayList<Crime> _crimeList;
 	private Context _appContext;
 
-
 	private CrimeLab(Context appContext)
 	{
 		this._appContext = appContext;
@@ -43,6 +42,10 @@ public class CrimeLab
 		_crimeList.add(crime);
 	}
 
+	public void deleteCrime(Crime c)
+	{
+		_crimeList.remove(c);
+	}
 
 	public ArrayList<Crime> getCrimeList()
 	{
