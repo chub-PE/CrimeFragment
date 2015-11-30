@@ -22,37 +22,13 @@ public class CrimeLab
 	{
 		this._appContext = appContext;
 		this._crimeList = new ArrayList<Crime>();
-
-		final Random fun = new Random();
-
-		final String[] start =
-				{
-						"Obama likes to ", "Why do you always ", "When I was 11 I thought I could",
-						"Why the fuck are you ", "I think cats are "
-				};
-
-		final String[] mid =
-				{
-					" eat raddish sandwitch with ", " sit on the toilet backwards, ", " turn into" +
-						" a unicorn ", " talking shit about me ", " fucking stink "
-				};
-
-		final String[] end =
-				{
-					"Donald Trump!", "you lil piece of shit!", " panda.", "bastard?", "poophole!!!"
-				};
-
-		for (int i = 0; i < 100; i++)
-		{
-			final Crime c = new Crime();
-			final String newTitle = start[fun.nextInt(start.length)] + mid[fun.nextInt(mid
-					.length)] + end[fun.nextInt(end.length)];
-			c.setCrimeTitle(newTitle);
-			c.setCrimeSolved(i % 2 == 0);
-			_crimeList.add(c);
-		}
-
 	}
+
+	public void addCrime(Crime crime)
+	{
+		_crimeList.add(crime);
+	}
+
 
 	public ArrayList<Crime> getCrimeList()
 	{
@@ -67,7 +43,6 @@ public class CrimeLab
 		}
 		return null;
 	}
-
 
 	public static CrimeLab get(Context c)
 	{

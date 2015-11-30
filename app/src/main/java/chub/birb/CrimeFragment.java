@@ -5,9 +5,11 @@ import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.v4.app.NavUtils;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -38,6 +40,7 @@ public class CrimeFragment extends Fragment
 	public void onCreate(Bundle b)
 	{
 		super.onCreate(b);
+		setHasOptionsMenu(true);
 		final UUID crimeID = (UUID) getArguments().getSerializable(EXTRA_CRIME_ID);
 		_crimeObject = CrimeLab.get(getActivity()).getCrime(crimeID);
 	}
@@ -46,6 +49,11 @@ public class CrimeFragment extends Fragment
 	public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle b)
 	{
 		View view = inflater.inflate(R.layout.fragment_crime, parent, false);
+
+		if (NavUtils.getParentActivityName(getActivity()) != null)
+		{
+			getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
+		}
 
 		_solvedCheckBox = (CheckBox) view.findViewById(R.id.crime_solved_checkbox);
 		_solvedCheckBox.setChecked(_crimeObject.isCrimeSolved());
@@ -95,6 +103,22 @@ public class CrimeFragment extends Fragment
 		});
 
 		return view;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		switch (item.getItemId())
+		{
+			case android.R.id.home :
+				if (NavUtils.getParentActivityName(getActivity()) != null)
+				{
+					NavUtils.navigateUpFromSameTask(getActivity());
+				}
+				return true;
+			default:
+				return super.onOptionsItemSelected(item);
+		}
 	}
 
 	@Override
