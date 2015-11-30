@@ -36,7 +36,7 @@ public class CrimePagerActivity extends FragmentActivity
 			@Override
 			public Fragment getItem(int position)
 			{
-				return CrimeFragment.newInstance(_crimeList.get(position).getCrimeID());
+				return CrimeFragment.newInstance(_crimeList.get(position).getID());
 			}
 
 			@Override
@@ -50,7 +50,7 @@ public class CrimePagerActivity extends FragmentActivity
 				(UUID)getIntent().getSerializableExtra(CrimeFragment.EXTRA_CRIME_ID);
 		for (int i = 0; i < _crimeList.size(); i++)
 		{
-			if (_crimeList.get(i).getCrimeID().equals(crimeId))
+			if (_crimeList.get(i).getID().equals(crimeId))
 			{
 				_viewPager.setCurrentItem(i);
 				break;
@@ -71,7 +71,7 @@ public class CrimePagerActivity extends FragmentActivity
 			public void onPageSelected(int position)
 			{
 				Crime crime = _crimeList.get(position);
-				if (crime.getCrimeTitle() != null) setTitle(crime.getCrimeTitle());
+				if (crime.getTitle() != null) setTitle(crime.getTitle());
 			}
 		});
 	}

@@ -51,7 +51,7 @@ public class CrimeListFragment extends ListFragment
 
 		//Start CrimeActivity
 		Intent i = new Intent(getActivity(), CrimePagerActivity.class);
-		i.putExtra(CrimeFragment.EXTRA_CRIME_ID, c.getCrimeID());
+		i.putExtra(CrimeFragment.EXTRA_CRIME_ID, c.getID());
 		startActivity(i);
 	}
 
@@ -91,7 +91,7 @@ public class CrimeListFragment extends ListFragment
 				Crime crime = new Crime();
 				CrimeLab.get(getActivity()).addCrime(crime);
 				Intent i = new Intent(getActivity(), CrimePagerActivity.class);
-				i.putExtra(CrimeFragment.EXTRA_CRIME_ID, crime.getCrimeID());
+				i.putExtra(CrimeFragment.EXTRA_CRIME_ID, crime.getID());
 				startActivityForResult(i, 0);
 				return true;
 			case R.id.menu_item_show_subtitle:
@@ -135,15 +135,15 @@ public class CrimeListFragment extends ListFragment
 
 			TextView titleTextView =
 					(TextView) convertView.findViewById(R.id.listCrimeTitleTextView);
-				titleTextView.setText(c.getCrimeTitle());
+				titleTextView.setText(c.getTitle());
 
 			TextView dateTextView =
 					(TextView) convertView.findViewById(R.id.listCrimeDateTextView);
-				dateTextView.setText(c.getCrimeDate().toString());
+				dateTextView.setText(c.getDate().toString());
 
 			CheckBox solvedCheckBox =
 					(CheckBox) convertView.findViewById(R.id.listCrimeSolvedCheckBox);
-			solvedCheckBox.setChecked(c.isCrimeSolved());
+			solvedCheckBox.setChecked(c.isSolved());
 
 			return convertView;
 		}

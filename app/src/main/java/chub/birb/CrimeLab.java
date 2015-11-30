@@ -1,9 +1,9 @@
 package chub.birb;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.UUID;
 
 /**
@@ -12,8 +12,12 @@ import java.util.UUID;
  */
 public class CrimeLab
 {
+	private static final String TAG = "CrimeLab";
+	private static final String FILENAME = "crimes.json";
+
 	private static CrimeLab _crimeLab;
 
+	private CriminalIntentJSONSerializer _serializer;
 	private ArrayList<Crime> _crimeList;
 	private Context _appContext;
 
@@ -22,6 +26,7 @@ public class CrimeLab
 	{
 		this._appContext = appContext;
 		this._crimeList = new ArrayList<Crime>();
+		_serializer = new CriminalIntentJSONSerializer(_appContext, FILENAME);
 	}
 
 	public void addCrime(Crime crime)
@@ -39,7 +44,7 @@ public class CrimeLab
 	{
 		for (Crime c : _crimeList)
 		{
-			if (c.getCrimeID().equals(id)) return c;
+			if (c.getID().equals(id)) return c;
 		}
 		return null;
 	}
@@ -53,6 +58,19 @@ public class CrimeLab
 		return _crimeLab;
 	}
 
-
+	public boolean saveCrimes()
+	{
+		try
+		{
+			_serializer.saveCrimes(_crimeList);
+			Log.d(TAG, "crimes saved to file");
+			return true;
+		}
+		catch (Exception ex)
+		{
+			Log.e(TAG, "Error saving crimes: ", ex);
+			return false;
+		}
+	}
 
 }

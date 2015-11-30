@@ -56,13 +56,13 @@ public class CrimeFragment extends Fragment
 		}
 
 		_solvedCheckBox = (CheckBox) view.findViewById(R.id.crime_solved_checkbox);
-		_solvedCheckBox.setChecked(_crimeObject.isCrimeSolved());
+		_solvedCheckBox.setChecked(_crimeObject.isSolved());
 		_solvedCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
 		{
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
 			{
-				_crimeObject.setCrimeSolved(isChecked);
+				_crimeObject.setSolved(isChecked);
 			}
 		});
 
@@ -75,7 +75,7 @@ public class CrimeFragment extends Fragment
 				FragmentManager fm =
 						getActivity().getFragmentManager();
 				DatePickerFragment dialog =
-						DatePickerFragment.newInstance(_crimeObject.getCrimeDate());
+						DatePickerFragment.newInstance(_crimeObject.getDate());
 				dialog.setTargetFragment(CrimeFragment.this, REQUEST_DATE);
 				dialog.show(fm, DIALOG_DATE);
 			}
@@ -83,12 +83,12 @@ public class CrimeFragment extends Fragment
 		refreshDate();
 
 		_titleField = (EditText) view.findViewById(R.id.crime_title);
-		_titleField.setText(_crimeObject.getCrimeTitle());
+		_titleField.setText(_crimeObject.getTitle());
 		_titleField.addTextChangedListener(new TextWatcher()
 		{
 			public void onTextChanged(CharSequence c, int start, int before, int count)
 			{
-				_crimeObject.setCrimeTitle(c.toString());
+				_crimeObject.setTitle(c.toString());
 			}
 
 			public void beforeTextChanged(CharSequence c, int start, int count, int after)
@@ -103,6 +103,13 @@ public class CrimeFragment extends Fragment
 		});
 
 		return view;
+	}
+
+	@Override
+	public void onPause()
+	{
+		super.onPause();
+		CrimeLab.get(getActivity()).saveCrimes();
 	}
 
 	@Override
@@ -129,7 +136,7 @@ public class CrimeFragment extends Fragment
 		{
 			Date date =
 					(Date) data.getSerializableExtra(DatePickerFragment.EXTRA_DATE);
-			_crimeObject.setCrimeDate(date);
+			_crimeObject.setDate(date);
 			refreshDate();
 		}
 	}
@@ -145,7 +152,7 @@ public class CrimeFragment extends Fragment
 
 	private void refreshDate()
 	{
-		_dateButton.setText(_crimeObject.getCrimeDate().toString());
+		_dateButton.setText(_crimeObject.getDate().toString());
 	}
 
 }

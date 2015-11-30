@@ -1,6 +1,9 @@
 package chub.birb;
 
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Date;
 import java.util.UUID;
 
@@ -10,57 +13,72 @@ import java.util.UUID;
  */
 public class Crime
 {
-	private UUID _crimeID;
-    private String _crimeTitle;
-    private Date _crimeDate;
-    private boolean _crimeSolved;
+    private static final String JSON_ID = "id";
+    private static final String JSON_TITLE = "title";
+    private static final String JSON_SOLVED = "solved";
+    private static final String JSON_DATE = "date";
+
+	private UUID _ID;
+    private String _title;
+    private Date _date;
+    private boolean _solved;
 
     public Crime()
     {
         //generate unique ID
-        _crimeID = UUID.randomUUID();
-        _crimeDate = new Date();
+        _ID = UUID.randomUUID();
+        _date = new Date();
     }
 
-    public UUID getCrimeID()
+    public JSONObject toJSON() throws JSONException
     {
-        return _crimeID;
+        JSONObject json = new JSONObject();
+        json.put(JSON_ID, _ID.toString());
+        json.put(JSON_TITLE, _title);
+        json.put(JSON_SOLVED, _solved);
+        json.put(JSON_DATE, _date.getTime());
+        return json;
     }
 
-    public String getCrimeTitle()
+    public UUID getID()
     {
-        return _crimeTitle;
+        return _ID;
     }
 
-    public void setCrimeTitle(String crimeTitle)
+    public String getTitle()
     {
-        _crimeTitle = crimeTitle;
+        return _title;
     }
 
-    public Date getCrimeDate()
+    public void setTitle(String title)
     {
-        return _crimeDate;
+        _title = title;
     }
 
-    public void setCrimeDate(Date crimeDate)
+    public Date getDate()
     {
-        _crimeDate = crimeDate;
+        return _date;
     }
 
-    public boolean isCrimeSolved()
+    public void setDate(Date date)
     {
-        return _crimeSolved;
+        _date = date;
     }
 
-    public void setCrimeSolved(boolean crimeSolved)
+    public boolean isSolved()
     {
-        _crimeSolved = crimeSolved;
+        return _solved;
+    }
+
+    public void setSolved(boolean solved)
+    {
+        _solved = solved;
     }
 
     @Override
     public String toString()
     {
-        return _crimeTitle;
+        return _title;
     }
 
 
